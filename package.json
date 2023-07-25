@@ -1,7 +1,7 @@
 {
   "name": "vue-switch-controller",
   "version": "1.0.0",
-  "description": "",
+  "description": "Are you tired of dealing with messy code when managing switches in your application? Say goodbye to complexity and embrace the simplicity of SwitchController!",
   "main": "src/index.js",
   "directories": {
     "test": "test"
