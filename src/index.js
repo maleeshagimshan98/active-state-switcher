@@ -1,4 +1,4 @@
-import SwichController from "./SwichController"
-import SwitchState from "./SwitchState"
+import ElementStateController from "./ElementStateController"
+import ElementState from "./ElementState"
 
-export default {SwichController, SwitchState}
+export default { ElementStateController, ElementState }
