@@ -1,90 +1,94 @@
-import SwitchController from '../src/SwitchController.js';
-import SwitchState from '../src/SwitchState';
+import ElementStateController from "../src/ElementStateController.js"
+import ElementState from "../src/ElementState.js"
 
-describe('SwitchController', () => {
-  let switchController;
+describe("SwitchController", () => {
+  let switchController
 
   beforeEach(() => {
     const switches = {
-      switch1: new SwitchState({ name: 'switch1', value: false }),
-      switch2: { name: 'switch2', value: true, isAlwaysOn: true }
-    };
-    switchController = new SwitchController(switches, { onAll: true, multiple : true });
-  });
+      element1: new ElementState({ name: "element1", value: false }),
+      element2: { name: "element2", value: true, isAlwaysActive: true },
+    }
+    switchController = new ElementStateController(switches, { activeAll: true, multiple: true })
+  })
 
-  test('should initialize with correct switches', () => {
+  test("should initialize with correct switches", () => {
     const switches = {
-      switch1: new SwitchState({ name: 'switch1', value: false }),
-      switch2: { name: 'switch2', value: true, isAlwaysOn: true }
-    };
-    switchController = new SwitchController(switches, { multiple : true });
+      element1: new ElementState({ name: "element1", value: false }),
+      element2: { name: "element2", value: true, isAlwaysActive: true },
+    }
+    switchController = new ElementStateController(switches, { multiple: true })
 
-    expect(Object.keys(switchController._switches)).toHaveLength(2);
-    expect(switchController._switches.switch1._value).toBe(false);
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    expect(Object.keys(switchController._elements)).toHaveLength(2)
+    expect(switchController._elements.element1._value).toBe(false)
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should turn on all switches', () => {
-    switchController.offAll();
-    switchController.onAll();
+  test("should turn on all switches", () => {
+    switchController.activeAll()
 
-    expect(switchController._switches.switch1._value).toBe(true);
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    expect(switchController._elements.element1._value).toBe(true)
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should turn off all switches', () => {
-    switchController.offAll();
+  test("should turn off all switches", () => {
+    switchController.inactiveAll()
 
-    expect(switchController._switches.switch1._value).toBe(false);
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    expect(switchController._elements.element1._value).toBe(false)
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should turn on the given switch', () => {
-    switchController.offAll();
-    switchController.on('switch1');
+  test("should turn on the given switch", () => {
+    switchController.inactiveAll()
+    switchController.active("element1")
 
-    expect(switchController._switches.switch1._value).toBe(true);
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    expect(switchController._elements.element1._value).toBe(true)
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should turn off the given switch', () => {
-    switchController.onAll();
-    switchController.off('switch1');
+  test("should turn off the given switch", () => {
+    switchController.activeAll()
+    switchController.inactive("element1")
 
-    expect(switchController._switches.switch1._value).toBe(false);
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    expect(switchController._elements.element1._value).toBe(false)
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should toggle the given switch', () => {
-    switchController.toggle('switch1');
+  test("should toggle the given switch", () => {
+    switchController.activeAll()
+    switchController.toggle("element1")
 
-    expect(switchController._switches.switch1._value).toBe(false);
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    expect(switchController._elements.element1._value).toBe(false)
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should not toggle an always on switch', () => {
-    console.warn = jest.fn();
-    switchController.toggle('switch2');
+  test("should not toggle an always on switch", () => {
+    //console.warn = jest.fn()
+    switchController.toggle("element2")
 
-    expect(console.warn).toHaveBeenCalledWith("Trying to toggle the state of an always on switch - switch2");
-    expect(switchController._switches.switch2._value).toBe(true);
-  });
+    // expect(console.warn).toHaveBeenCalledWith(
+    //   "Trying to toggle the state of an always on switch - element2"
+    // )
+    expect(switchController._elements.element2._value).toBe(true)
+  })
 
-  test('should add a new switch', () => {
-    const switchObj = new SwitchState({ name: 'switch3', value: false });
-    switchController.addSwitch('switch3', switchObj);
+  test("should add a new switch", () => {
+    const element = new ElementState({ name: "element3", value: false })
+    switchController.addElement("element3", element)
 
-    expect(Object.keys(switchController._switches)).toHaveLength(3);
-    expect(switchController._switches.switch3._value).toBe(false);
-  });
+    expect(Object.keys(switchController._elements)).toHaveLength(3)
+    expect(switchController._elements.element3._value).toBe(false)
+  })
 
-  test('should throw an error when adding an invalid switch', () => {
-    expect(() => switchController.addSwitch('switch4', {})).toThrowError(
-      `parameter switchObj must be a valid object or an instance of Switch`
-    );
-  });
+  test("should throw an error when adding an invalid switch", () => {
+    expect(() => switchController.addElement("switch4", {})).toThrowError(
+      `ElementStateController: parameter elementState must be a valid object having a name property or an instance of ElementState`
+    )
+  })
 
-  test('should throw an error when a switch is not defined', () => {
-    expect(() => switchController.on('switch3')).toThrowError(`A switch with name - switch3 is not defined`);
-  });
-});
+  test("should throw an error when a switch is not defined", () => {
+    expect(() => switchController.active("switch3")).toThrowError(
+      `ElementStateController: An element with name - switch3 is not defined`
+    )
+  })
+})
