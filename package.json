@@ -1,7 +1,7 @@
 {
-  "name": "vue-switch-controller",
+  "name": "active-state-switcher",
   "version": "1.0.0",
-  "description": "Are you tired of dealing with messy code when managing switches in your application? Say goodbye to complexity and embrace the simplicity of SwitchController!",
+  "description": "Are you tired of dealing with messy code when managing active state in your components? Say goodbye to complexity and embrace the simplicity of ElementStateController!",
   "main": "src/index.js",
   "directories": {
     "test": "test"
@@ -20,11 +20,14 @@
     "babel-jest": "^29.5.0"
   },
   "keywords": [
-    "switch",
-    "switcher",
+    "state",
+    "state controller",
+    "active",
+    "react",
     "vue component",
     "component",
-    "vue"
+    "vue",
+    "react-native"
   ],
   "author": {
     "name": "Maleesha Gimshan",
