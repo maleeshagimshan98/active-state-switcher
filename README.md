@@ -38,7 +38,7 @@ ElementStateController and ElementState are two JavaScript classes that provide 
 
 💪 Manage Multiple Elements with Ease: Say goodbye to repetitive tasks! ElementStateController empowers you to handle multiple elements with a single instance.
 
-🎨 Customize to Your Heart's Content: Tailor each element's behavior to fit your application's specific requirements with ease.
+🎨 Customize to Your Heart's Content: Tailor each element's behavior to requirements with ease.
 
 📦 Simple Installation: Installing ElementStateController is a breeze! Just run a single npm command, and you're ready to go.
 
