@@ -101,6 +101,7 @@ class ElementState {
       throw new Error(`Trying to set the isAlwaysActive in ${this._name}. The value must be a boolean, but found ${typeof value}`)
     }
     this._isAlwaysActive = value
+    value ? this.active() : this.inactive()
   }
 }
 
