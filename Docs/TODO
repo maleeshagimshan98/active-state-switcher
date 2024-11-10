@@ -1,0 +1,7 @@
+isAnyActiveStateFound - update this when
+    - initializing the states - ok
+    - adding new state - ok
+    - activating new state - ok
+    - inactiveAll() - ok
+    - toggle()
+add alwaysInactive property to ElementState?

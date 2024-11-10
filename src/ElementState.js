@@ -24,6 +24,15 @@ class ElementState {
   }
 
   /**
+   * Getter for ElementState's name
+   * 
+   * @returns {string}
+   */
+  get name () {
+    return this._name
+  }
+
+  /**
    * change the state to active
    *
    * @returns {void} void
@@ -78,6 +87,21 @@ class ElementState {
    */
   isAlwaysActive() {
     return this._isAlwaysActive
+  }
+
+  /**
+   * Set the isAlwaysActive property
+   * 
+   * @param {boolean} value
+   * @returns {void}
+   * @throws {Error}
+   */
+  setIsAlwaysActive (value) {
+    if (typeof value !== 'boolean') {
+      throw new Error(`Trying to set the isAlwaysActive in ${this._name}. The value must be a boolean, but found ${typeof value}`)
+    }
+    this._isAlwaysActive = value
+    value ? this.active() : this.inactive()
   }
 }
 
