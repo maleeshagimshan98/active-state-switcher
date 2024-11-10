@@ -268,6 +268,24 @@ class ElementStateController {
       togglingElementState.toggle()
     }
   }
+
+  /**
+   * Set isAlwaysActive property on a state
+   * 
+   * @param {string} name element state name
+   * @returns {void}
+   * @throws {Error}
+   */
+  setIsAlwaysActive (name, value) {
+    this._throwErrorIfElementNotDefined(name)
+    if (value === false)    {
+      this._elements[name].setIsAlwaysActive(value)
+      return
+    }
+    if (this._contradictWithMultipleElementRule(true)) {
+      throw new Error(`ElementStateController: Contradicts with multiple elements rule, cannot set isAlwaysActive on ${name}.`)
+    }
+  }
 }
 
 export default ElementStateController
